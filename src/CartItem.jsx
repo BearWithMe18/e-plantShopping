@@ -17,11 +17,7 @@ const CartItem = ({ onContinueShopping }) => {
     }
 
   const handleContinueShopping = (e) => {
-    e.preventDefault();
-    e.ProductList.setShowPlants(true);
-    e.ProductList.setShowPlants(false);
-    //dispatch(setShowPlants(true));
-    //dispatch(setShowCart(false));
+    onContinueShopping(e);
   };
 
   const handleCheckoutShopping = (e) => {
@@ -29,19 +25,19 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleIncrement = (item) => {
-    dispatch(updateQuantity(item));
+    dispatch(updateQuantity({...item, quantity: item.quantity+1}));
   };
 
   const handleDecrement = (item) => {
     if (item.quantity == 1) {
-        dispatch(removeItem(item));
+        dispatch(removeItem(item.name));
     } else {
-        dispatch(updateQuantity(item));
+        dispatch(updateQuantity({...item, quantity: item.quantity-1}));
     }
   };
 
   const handleRemove = (item) => {
-    dispatch(removeItem(item));
+    dispatch(removeItem(item.name));
   };
 
   // Calculate total cost based on quantity for an item
